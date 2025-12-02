@@ -13,18 +13,28 @@ const { cities, addCity, removeCity } = useWeatherWidget();
 
 const query = ref("");
 const foundCities = ref<CityGeocodeApiResponse[]>([]);
+const error = ref("");
 
 const draggedIndex = ref<number | null>(null);
 
 async function findCity() {
+  foundCities.value = [];
+
   const [cityName, countryCode] = query.value.split(",").map((s) => s.trim());
 
   const result = await fetchCities(cityName, countryCode);
+
+  if (!result.length) {
+    error.value = "No cities found";
+    return;
+  }
 
   if (result.length === 1) {
     await addCity(result[0]);
     query.value = "";
   } else foundCities.value = result;
+
+  error.value = "";
 }
 
 async function addCityAndClear(city: CityGeocodeApiResponse) {
@@ -120,6 +130,8 @@ function onDragEnd() {
       </ul>
       <button @click="clearCities">Clear</button>
     </div>
+
+    <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
 
@@ -128,6 +140,10 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+.error {
+  color: red;
 }
 
 .settings > button {
