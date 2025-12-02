@@ -2,7 +2,7 @@ import { WEATHER_API_KEY } from "@/lib/constants";
 import type { CityGeocodeApiResponse } from "@/types";
 import { getCachedCity } from "@/utils";
 
-const CITY_API_URL = "http://api.openweathermap.org/geo/1.0/direct";
+const CITY_API_URL = "https://api.openweathermap.org/geo/1.0/direct";
 
 export async function fetchCities(
   cityName: string,

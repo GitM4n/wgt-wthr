@@ -9,7 +9,7 @@ import type {
 import { CITIES_STORAGE_KEY, WEATHER_API_KEY } from "@/lib/constants";
 import { getUserLocation } from "@/utils";
 
-const REVERSE_GEO_API_URL = "http://api.openweathermap.org/geo/1.0/reverse";
+const REVERSE_GEO_API_URL = "https://api.openweathermap.org/geo/1.0/reverse";
 
 const weatherData = ref<WeatherApiResponse[]>([]);
 const cities = ref<CityWithWeatherId[]>([]);
